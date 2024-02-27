@@ -10,12 +10,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-  security:
-    user:
-      name: user
-      password: nizar123
-      roles: USER
+## LOGGING ##
+logging:
+  level:
+    root: info
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %-5level- %logger{45} - %msg %n"
 
 app:
   client:
