@@ -2,6 +2,7 @@ package com.nizar.SahTech.users.Auth;
 
 import jakarta.persistence.*;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,9 @@ public class UserEntity {
     @Column(name = "Cin")
     private String cin;
     @Column(name = "Image")
-    private String Image;
+    private  String Image;
+    @Column(name = "IsActive")
+    private boolean isActive ;
 
 // 
 

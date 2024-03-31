@@ -1,4 +1,4 @@
-package com.nizar.SahTech.users.Auth;
+package com.nizar.SahTech.users.Auth.Register;
 import lombok.Data;
 
 @Data

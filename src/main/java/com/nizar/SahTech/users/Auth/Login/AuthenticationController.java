@@ -1,9 +1,14 @@
-package com.nizar.SahTech.users.Auth;
+package com.nizar.SahTech.users.Auth.Login;
 
 
 import com.nizar.SahTech.role.repository.RoleRep;
 import com.nizar.SahTech.security.JWTGenerator;
+import com.nizar.SahTech.users.Auth.AuthResponseDTO;
+import com.nizar.SahTech.users.Auth.UserRepository;
+import com.nizar.SahTech.users.Auth.Otp.SmsService;
 import com.nizar.SahTech.util.JwtUtil;
+import com.twilio.twiml.voice.Sms;
+
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
-
+private final SmsService smsService;
+private final UserRepository userRepository;
 
 
     @PostMapping("/authenticate")

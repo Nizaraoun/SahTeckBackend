@@ -1,4 +1,6 @@
 package com.nizar.SahTech.users.Auth;
+import java.sql.Blob;
+
 import lombok.Data;
 
 @Data
@@ -18,6 +20,6 @@ public class UserDTO {
 
     private String role;
 
-    private String image;
+    private  String image;
 
 }

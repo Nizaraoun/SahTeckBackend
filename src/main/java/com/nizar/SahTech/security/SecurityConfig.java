@@ -26,32 +26,12 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
         this.authEntryPoint = authEntryPoint;
     }
-
-    // @Bean
-    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //     http
-    //             .csrf().disable()
-    //             .exceptionHandling()
-    //             .authenticationEntryPoint(authEntryPoint)
-    //             .and()
-    //             .sessionManagement()
-    //             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    //             .and()
-    //             .authorizeRequests()
-    //             .antMatchers("/api/auth/**").permitAll()
-    //             .anyRequest().authenticated()
-    //             .and()
-    //             .httpBasic();
-    //     http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    //     return http.build();
-    // }
-
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
          http.authorizeHttpRequests(authorizeRequests ->{
                 authorizeRequests
-                        .requestMatchers("/authenticate","/register","/registerdoctor").permitAll()
+                        .requestMatchers("/authenticate","/register","/registerdoctor","/send-otp").permitAll()
                         .requestMatchers("/api/**").authenticated();
     });
         http.cors( AbstractHttpConfigurer::disable );
@@ -59,9 +39,7 @@ public class SecurityConfig {
         http.formLogin(AbstractHttpConfigurer::disable);
                 http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
                 http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-           
-
-                
+        
          return http.build();
     }
 

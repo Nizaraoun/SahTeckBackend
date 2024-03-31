@@ -6,7 +6,4 @@ import com.nizar.SahTech.users.entite.MedicalFile;
 
 public interface DocFileRepository extends JpaRepository<MedicalFile, Long> {
 
-
-
-    
 } 

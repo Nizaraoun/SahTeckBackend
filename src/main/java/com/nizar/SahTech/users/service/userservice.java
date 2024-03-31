@@ -1,16 +1,8 @@
 package com.nizar.SahTech.users.service;
-
-import java.util.List;
 import java.util.Optional;
 import java.security.Principal;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
 import com.nizar.SahTech.users.Auth.UserDTO;
@@ -33,16 +25,21 @@ private final DocFileRepository docFileRepository; // Assuming you have a reposi
   public ResponseEntity<String> saveImageForUser(UserDTO imageData ,Principal connecteduser) {
 
 Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
-
-user.get().setImage(imageData.getImage());
-userRepository.save(user.get());
-    
-return ResponseEntity.ok("Image uploaded successfully for user with ID: " );
+try {
+    if (user.isPresent()) {
+        user.get().setImage(imageData.getImage());
+        userRepository.save(user.get());
+        return ResponseEntity.ok("Image uploaded successfully for user with ID: " + user.get().getId());
+    }
+} catch (Exception e) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image: " + e.getMessage());
+}
+return ResponseEntity.badRequest().body("User not found");
   }
 
 
   // this method is used to save the medical file for the user
-  
+
 public ResponseEntity<String> saveMedicalFileForUser(MedicalFileDTO medicalFileData, Principal connecteduser) {
 
     Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
@@ -66,7 +63,17 @@ try {
 return ResponseEntity.badRequest().body("User not found");
 
 }
-
+// this method is used to get the profile image for the user
+public ResponseEntity<?> getImageForUser(Principal connecteduser) {
+    Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
+    try {
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get().getImage());
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get image: " + e.getMessage());
+    }
+    return ResponseEntity.badRequest().body("User not found");}
 
 }
 

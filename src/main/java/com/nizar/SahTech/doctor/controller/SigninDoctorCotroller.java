@@ -7,7 +7,6 @@ import com.nizar.SahTech.doctor.dto.SignUpDto;
 import com.nizar.SahTech.doctor.service.DoctorService;
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 @RestController
 public class SigninDoctorCotroller {

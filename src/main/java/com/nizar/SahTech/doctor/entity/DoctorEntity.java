@@ -31,15 +31,19 @@ public class DoctorEntity {
     private String phone;
     @Column(name = "address")
     private String address;
+    @Column(name = "Latitude")
+    private String latitude;
+    @Column(name = "Longitude")
+    private String longitude;
     @Column(name = "password")
     private String password;
     @Column(name = "is_active")
     private Boolean isActive;
     @Column(name = "image")
     private String image;
-
-
-
+    @Column(name = "rating")
+    private Double rating;
+    
       @Temporal(TemporalType.DATE)
     private Date creationDate;
         @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
