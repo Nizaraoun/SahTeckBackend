@@ -25,8 +25,8 @@ app:
 #   # AccountSID: AC66514c238aaaf64740b3f63cab770271
 #   AuthToken: 2453a1b2b7c45d2d5523cb2c47191d8c
 #   phoneNumber: +13346001566
-mailersend:
-  apiKey: mlsn.d540614a88d96b3bb937b25f85e962c95730ce9b6a199d41f03551fa14ce6363
-  fromEmail: nizaraoun1919@gmail.com
-  fromName: Nizar Aoun
+# mailersend:
+#   apiKey: mlsn.d540614a88d96b3bb937b25f85e962c95730ce9b6a199d41f03551fa14ce6363
+#   fromEmail: nizaraoun1919@gmail.com
+#   fromName: Nizar Aoun
 
