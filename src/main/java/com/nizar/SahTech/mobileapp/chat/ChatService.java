@@ -93,8 +93,9 @@ public class ChatService {
                 return ResponseEntity.badRequest().body("No messages found");
             }
         } catch (Exception e) {
-            return null;
         }
+        return null;  
+
     }
 
     // concatenate two byte arrays
