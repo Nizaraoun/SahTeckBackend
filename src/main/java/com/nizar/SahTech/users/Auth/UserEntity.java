@@ -20,9 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Assuming ID is auto-generated
     @Column(name = "Id")
-    private Long id;
+    private String id;
     @Column(name = "Username")
     private String username;
     @Column(name = "Password")
@@ -33,8 +32,9 @@ public class UserEntity {
     private String phone;
     @Column(name = "Cin")
     private String cin;
-    @Column(name = "Image")
-    private  String Image;
+    @Lob
+    @Column(name = "Image" ,length = 1000000)
+    private  byte[]  Image;
     @Column(name = "IsActive")
     private boolean isActive ;
 

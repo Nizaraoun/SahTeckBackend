@@ -23,7 +23,7 @@ public class Rating {
     @Column(name = "rate")
     private double rate;
     @Column(name = "doctor_id")
-    private Long doctorId;
+    private String doctorId;
     @Column(name = "number_of_rating")
     private int numberOfRating;
 

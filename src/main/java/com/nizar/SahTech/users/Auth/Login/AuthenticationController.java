@@ -4,11 +4,13 @@ package com.nizar.SahTech.users.Auth.Login;
 import com.nizar.SahTech.role.repository.RoleRep;
 import com.nizar.SahTech.security.JWTGenerator;
 import com.nizar.SahTech.users.Auth.AuthResponseDTO;
+import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
 import com.nizar.SahTech.users.Auth.Otp.SmsService;
 import com.nizar.SahTech.util.JwtUtil;
 import com.twilio.twiml.voice.Sms;
 
+import java.util.Optional;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +41,7 @@ private final UserRepository userRepository;
     @PostMapping("/authenticate")
     public ResponseEntity<?> login(@RequestBody AuthenticationDTO authenticationDTO ) {
         try {
+            
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                         authenticationDTO.getEmail(),
@@ -48,8 +51,10 @@ private final UserRepository userRepository;
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-
-            return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+           Optional<UserEntity> user = userRepository.findByUsername(authenticationDTO.getEmail());
+           user.get().setPassword(null);
+           
+            return new ResponseEntity<>(new AuthResponseDTO(token, user) , HttpStatus.OK);
 
         } catch (AuthenticationException e) {
             // Authentication failed, return an error message

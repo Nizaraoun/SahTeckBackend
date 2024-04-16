@@ -20,7 +20,7 @@ public class Announcement {
     @Column(name = "Image")
     private String image;
     @Column(name = "doctor_id")
-    private Long doctorId;
+    private String doctorId;
     @Column(name = "doctor_name")
     private String doctorName;
     @Column(name = "patient_id")

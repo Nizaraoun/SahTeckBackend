@@ -12,8 +12,10 @@ import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
 import com.nizar.SahTech.users.Auth.Otp.OtpRequest;
 import com.nizar.SahTech.users.Auth.Otp.SmsService;
+import com.nizar.SahTech.util.IdGenerator;
 import com.twilio.twiml.voice.Sms;
 
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,24 +29,26 @@ public class AuthService {
 
     public ResponseEntity<String> register(SignupDTO signupDTO) {
         if (userRepository.existsByUsername(signupDTO.getUsername())) {
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("email is taken!", HttpStatus.BAD_REQUEST);
         }
         // Check if the email is already registered
-        if (userRepository.existsByEmail(signupDTO.getEmail())) {
-            return new ResponseEntity<>("Email is already registered!", HttpStatus.BAD_REQUEST);
-        }
+        // if (userRepository.existsByEmail(signupDTO.getEmail())) {
+        //     return new ResponseEntity<>("Email is already registered!", HttpStatus.BAD_REQUEST);
+        // }
         // Check if the phone number is already registered
         if (userRepository.existsByPhone(signupDTO.getPhone())) {
             return new ResponseEntity<>("Phone number is already registered!", HttpStatus.BAD_REQUEST);
             
         }
         else {
-        
             smsService.sendSMS( new OtpRequest(signupDTO.getUsername(), signupDTO.getPhone()));
-                    UserEntity user = new UserEntity();
+   UserEntity user = new UserEntity();
+   byte[] image = new byte[0];
         user.setUsername(signupDTO.getUsername());
+        user.setId(IdGenerator.generateId());
         user.setPhone(signupDTO.getPhone());
         user.setCin(signupDTO.getCin());
+        user.setImage(image);
         user.setEmail(signupDTO.getEmail());
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
         user.setCreationDate(new Date(0));

@@ -6,14 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity,Long> {
+public interface UserRepository extends JpaRepository<UserEntity,String> {
     Optional<UserEntity> findByUsername(String email);
     Boolean existsByUsername(String username);
-    Boolean existsByEmail(String email);
+    // Boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
-    
-
-
     //Creat User in db
     //  default UserDTO createUser(SignupDTO signupDTO) {
     //     UserEntity user = new UserEntity();

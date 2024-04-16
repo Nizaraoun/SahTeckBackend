@@ -41,6 +41,7 @@ public class AppService {
 //Get all doctors to the app user
     public List<DoctorEntity> findallDoctor() {
         List<DoctorEntity> list =doctorRepo.findAll();
+        
         list.removeIf(doctor -> !doctor.getIsActive());
         list.forEach(doctor -> {
             doctor.setPassword(null);
@@ -57,12 +58,12 @@ public class AppService {
 
 
  public List<DoctorEntity> GetRecommended_Doctors() {
-    List<Long> idList = ratingrepository.findTop15DoctorIdsByRatingDesc();
+    List<String> idList = ratingrepository.findTop15DoctorIdsByRatingDesc();
     List<DoctorEntity> targetList = new ArrayList<>();
     try {
         if (idList.isEmpty()==false) {
              // Populate targetList with DoctorEntity objects corresponding to the ids in idList
-             for (Long id : idList) {
+             for (String id : idList) {
                 Optional<DoctorEntity> doctorOptional = doctorRepo.findById(id);
                 if (doctorOptional.isPresent()) {
                     DoctorEntity doctor = doctorOptional.get();
@@ -85,7 +86,7 @@ public class AppService {
 }
 
     //Add rating to the doctor 
-    public ResponseEntity <String>   AddRating(Long id ,int rate) {
+    public ResponseEntity <String>   AddRating(String id ,int rate) {
          Optional<Rating> rating=  ratingrepository.findByDoctorId(id);
          Optional<DoctorEntity> doctor=  doctorRepo.findById(id);
 

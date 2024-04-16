@@ -17,7 +17,9 @@ import com.nizar.SahTech.doctor.repository.DoctorRepo;
 import com.nizar.SahTech.role.dto.Role;
 import com.nizar.SahTech.role.repository.RoleRep;
 import com.nizar.SahTech.users.Auth.UserEntity;
+import com.nizar.SahTech.util.IdGenerator;
 
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,7 +30,7 @@ public class DoctorService {
     private final RoleRep roleRepository;
     private final PasswordEncoder passwordEncoder;
     
-    public String getDoctor(Long uid) {
+    public String getDoctor(String uid) {
         DoctorEntity doctor = new DoctorEntity();
        Optional<DoctorEntity> optionaldoctor=doctorRepo.findById(uid);
          if(optionaldoctor.isPresent()) {
@@ -49,6 +51,7 @@ public class DoctorService {
         }
 
         DoctorEntity doctor = new DoctorEntity();
+        doctor.setId(IdGenerator.generateId());
         doctor.setUsername(signupDTO.getUsername());
         doctor.setPhone(signupDTO.getPhone());
         doctor.setEmail(signupDTO.getEmail());

@@ -8,7 +8,7 @@ public class PublicationDTO {
     private String title;
     private String description;
     private String image;
-    private Long doctorId;
+    private String doctorId;
     private String date;
     private Boolean isAccepted;
 }

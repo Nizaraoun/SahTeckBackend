@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.nizar.SahTech.users.dto.ReservationDTO;
-import com.nizar.SahTech.users.entite.Reservation;
-import com.nizar.SahTech.users.service.ReservationService;
+
+import com.nizar.SahTech.users.reservation.Reservation;
+import com.nizar.SahTech.users.reservation.ReservationDTO;
+import com.nizar.SahTech.users.reservation.ReservationService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -42,7 +44,7 @@ public class ReservationController {
     }
     @GetMapping("/getDoctorResrvation")
 
-    public List<String> getReservedHoursForDoctorOnDay(@RequestParam("id_praticien") Long idPraticien, @RequestParam("jour") String jour) {
+    public List<String> getReservedHoursForDoctorOnDay(@RequestParam("id_praticien") String idPraticien, @RequestParam("jour") String jour) {
         return reservationService.getReservedHoursForDoctorOnDay(idPraticien, jour);
 
     }

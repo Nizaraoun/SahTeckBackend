@@ -18,9 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DoctorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Assuming ID is auto-generated
     @Column(name = "Id")
-    private Long id;
+    private String id;
     @Column(name = "name")
     private String username;
     @Column(name = "speciality")
