@@ -21,5 +21,3 @@ logging:
 app:
   client:
     url: http://localhost:8080/*
-
-
