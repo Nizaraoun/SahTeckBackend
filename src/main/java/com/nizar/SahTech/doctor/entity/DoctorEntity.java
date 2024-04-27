@@ -38,8 +38,9 @@ public class DoctorEntity {
     private String password;
     @Column(name = "is_active")
     private Boolean isActive;
-    @Column(name = "image")
-    private String image;
+    @Lob
+    @Column(name = "image" ,length = 20000000)
+    private byte[] image;
     @Column(name = "rating")
     private Double rating;
     

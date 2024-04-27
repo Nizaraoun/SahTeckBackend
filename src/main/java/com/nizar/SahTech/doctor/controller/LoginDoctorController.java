@@ -1,20 +1,12 @@
-package com.nizar.SahTech.users.Auth.Login;
-
-
-import com.nizar.SahTech.role.repository.RoleRep;
+package com.nizar.SahTech.doctor.controller;
+import com.nizar.SahTech.doctor.repository.DoctorRepo;
 import com.nizar.SahTech.security.JWTGenerator;
 import com.nizar.SahTech.users.Auth.AuthResponseDTO;
 import com.nizar.SahTech.users.Auth.UserEntity;
-import com.nizar.SahTech.users.Auth.UserRepository;
-import com.nizar.SahTech.users.Auth.Otp.SmsService;
-import com.nizar.SahTech.util.JwtUtil;
-import com.twilio.twiml.voice.Sms;
-
+import com.nizar.SahTech.users.Auth.Login.AuthenticationDTO;
+import com.nizar.SahTech.users.medical_doc.DocRepository;
 import java.util.Optional;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,23 +14,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.nizar.SahTech.doctor.dto.AuthDrResponseDTO;
+import com.nizar.SahTech.doctor.entity.DoctorEntity;
 
 @RestController
-@RequiredArgsConstructor
-// @RequestMapping("/api/users")
-public class AuthenticationController {
+@RequestMapping("/doctor")
+@AllArgsConstructor
+public class LoginDoctorController {
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
-private final SmsService smsService;
-private final UserRepository userRepository;
-
-
-    @PostMapping("/authenticate")
+private final DoctorRepo doctorRepository;
+    @RequestMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationDTO authenticationDTO ) {
         try {
             
@@ -51,10 +40,10 @@ private final UserRepository userRepository;
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-           Optional<UserEntity> user = userRepository.findByUsername(authenticationDTO.getEmail());
-           user.get().setPassword(null);
-           
-            return new ResponseEntity<>(new AuthResponseDTO(token, user) , HttpStatus.OK);
+           Optional<DoctorEntity> doctor = doctorRepository.findByUsername(authenticationDTO.getEmail());
+           doctor.get().setPassword(null);
+
+            return new ResponseEntity<>(new AuthDrResponseDTO(token, doctor) , HttpStatus.OK);
 
         } catch (AuthenticationException e) {
             // Authentication failed, return an error message

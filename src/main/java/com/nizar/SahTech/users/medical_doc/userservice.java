@@ -11,6 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nizar.SahTech.users.Auth.UserDTO;
 import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
+import com.nizar.SahTech.util.IdGenerator;
+
 import java.util.List;
 
 import io.jsonwebtoken.io.IOException;
@@ -102,17 +104,18 @@ public List<Document> getMedicalDocForUser(Principal connecteduser) {
 
 public ResponseEntity<?> addMedicalDocForUser(DocumentDTO documentDTO, Principal connecteduser) {
     Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
-    Optional<Document> document = docRepository.findByDescription(documentDTO.getDescription());
-
+    if (documentDTO.getDescription() != null) {
+            Optional<Document> document = docRepository.findByUserIdAndDescription(user.get().getId(), documentDTO.getDescription());
     Document doc = new Document();
 MedicalFile file = new MedicalFile();
 byte[] bytes = "".getBytes();
 
 
     try {
-        if (!document.isPresent() && documentDTO.getDescription() != null) {
+        if (!document.isPresent()) {
             doc.setDescription(documentDTO.getDescription());
             doc.setNumber(0);
+            doc.setId( IdGenerator.generateId());
             doc.setUserId(user.get().getId());
             docRepository.save(doc);
             file.setId(doc.getId());
@@ -129,8 +132,24 @@ byte[] bytes = "".getBytes();
     } catch (Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add Medical Doc: " + e.getMessage());
     }
+}
     return ResponseEntity.badRequest().body("Document already exists for user with ID: " + user.get().getId());
 }
+// this method is used to delet the medical file for the user
+public ResponseEntity<?> deleteMedicalFileForUser(Principal connecteduser, String docId) {
+    Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
+    Optional<MedicalFile> files = docFileRepository.findById(docId);
+    Optional<Document> document = docRepository.findById(docId);
+    try {
+        if (files.isPresent()) {
+            docFileRepository.delete(files.get());
+            docRepository.delete(document.get());
+            return ResponseEntity.ok("Medical File deleted successfully for user with ID: " + user.get().getId());
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete Medical File: " + e.getMessage());
+    }
+    return ResponseEntity.badRequest().body("Medical File not found for user with ID: " + user.get().getId());}
 
 // this method is used to get the medical file for the user
 //public ResponseEntity<?> getMedicalFileForUser(Principal connecteduser) {
@@ -147,7 +166,7 @@ byte[] bytes = "".getBytes();
 
 // Helper method to concatenate two byte arrays
 private byte[] concatenateByteArrays(byte[] first, byte[] second  , int imageNumber) {
-    String str = "Image"+imageNumber+":"+"\n";
+    String str = "\n Image"+imageNumber+":" ;
     byte[] txt = str.getBytes();
 
     byte[] result = new byte[first.length + txt.length +second.length];

@@ -7,11 +7,13 @@ import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.nizar.SahTech.security.TwilioConfig;
 import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
+import com.twilio.http.Response;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
@@ -50,31 +52,32 @@ public class SmsService {
 		return otpResponseDto;
 	}
 	
-	public String validateOtp(OtpValidationRequest otpValidationRequest) {
+	public ResponseEntity<?> validateOtp(OtpValidationRequest otpValidationRequest) {
 		Set<String> keys = otpMap.keySet();
 		String username = null;
 		for(String key : keys)
 			username = key;
-        if (otpValidationRequest.getUsername().equals(username)) {
+        if (otpValidationRequest.getUsername().equals(username) && otpMap.get(username).equals(otpValidationRequest.getOtpNumber())) {
             otpMap.remove(username,otpValidationRequest.getOtpNumber());
 		try {
 UserEntity	user = userRepository.findByUsername(username).get();
 			user.setActive(true);
 			userRepository.save(user);
-						
+			return ResponseEntity.ok("OTP is valid!");
+		
 		} catch (Exception e) {
-			e.printStackTrace();
+			return ResponseEntity.badRequest().body("catch error!");
+		
 		}
+		
 
-            return "OTP is valid!";
-        } else {
-            return "OTP is invalid!";
         }
+		return ResponseEntity.badRequest().body("OTP is invalid!");
 	}
 	
 	private String generateOTP() {
-        return new DecimalFormat("00000")
-                .format(new Random().nextInt(99999));
+        return new DecimalFormat("000000")
+                .format(new Random().nextInt(999999));
     }
 
 }

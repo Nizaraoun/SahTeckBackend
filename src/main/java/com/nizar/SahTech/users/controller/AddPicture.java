@@ -2,6 +2,7 @@ package com.nizar.SahTech.users.controller;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,10 +46,11 @@ public class AddPicture {
         @GetMapping("/get-image")
         public ResponseEntity<?> getImageForUser(Principal connecteduser) {
             return userService.getImageForUser(connecteduser);
-        }
-     
+        } 
+
         // this method is used to get the medical file for the user
-// this method is user to  add the document for the user
+        // this method is user to  add the document for the user
+
         @PostMapping("/add-medical-doc")
         public ResponseEntity<?> addMedicalDocForUser(@RequestBody DocumentDTO documentDTO, Principal connecteduser) {
             return userService.addMedicalDocForUser(documentDTO, connecteduser);
@@ -59,19 +61,20 @@ public class AddPicture {
             public List<Document> getMedicalDocForUser(Principal connecteduser) {
                 return userService.getMedicalDocForUser(connecteduser);
             }
-               // this method is used to save the medical file for the user
-      @PostMapping("/add-medical-file")   
-      public ResponseEntity<?> uploadMedicalFileForUser(@RequestBody MedicalFileDTO medicalFileDTO ,Principal connecteduser ) {
+
+            // this method is used to delet the medical file for the user
+
+            @DeleteMapping("/delete-medical-doc")
+            public ResponseEntity<?> deleteMedicalDocForUser(@RequestParam String docId, Principal connecteduser) {
+                return userService.deleteMedicalFileForUser(connecteduser,docId);
+            }
+
+            // this method is used to save the medical file for the user
+
+             @PostMapping("/add-medical-file")   
+            public ResponseEntity<?> uploadMedicalFileForUser(@RequestBody MedicalFileDTO medicalFileDTO ,Principal connecteduser ) {
             return userService.saveMedicalFileForUser( connecteduser ,medicalFileDTO);
-        }
-
-            // this method is user to get the medical file for the user
-            // @GetMapping("/get-medical-file")
-            // public List<MedicalFile> getMedicalFileForUser(Principal connecteduser , Long docId) {
-            //     return userService.getMedicalFileForUser(connecteduser , docId);
-            // }
-
-
+             } 
     }
 
 

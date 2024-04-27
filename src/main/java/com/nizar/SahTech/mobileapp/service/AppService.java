@@ -2,6 +2,8 @@ package com.nizar.SahTech.mobileapp.service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList; // Import the ArrayList class
 
 import java.util.List;
@@ -51,6 +53,15 @@ public class AppService {
         });
 
         return list;
+    }
+    public String byteToString(byte[]byteArray) {
+        // Assuming you have a byte array
+       
+
+        // Convert byte array to String using UTF-8 encoding
+        String result = new String(byteArray, StandardCharsets.UTF_8);
+
+        return result;
     }
 
  //Get all doctors recommendation 

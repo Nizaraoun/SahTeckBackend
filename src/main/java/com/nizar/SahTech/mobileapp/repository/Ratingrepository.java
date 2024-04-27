@@ -12,7 +12,7 @@ import com.nizar.SahTech.mobileapp.entity.Rating;
 @Repository
 public interface Ratingrepository extends JpaRepository<Rating, Long>{
     Optional<Rating> findByDoctorId(String doctorId);
-    @Query("SELECT r.doctorId FROM Rating r ORDER BY r.rate DESC LIMIT 30")
+    @Query("SELECT r.doctorId FROM Rating r ORDER BY r.rate DESC LIMIT 15")
     List<String> findTop15DoctorIdsByRatingDesc();
 
 }

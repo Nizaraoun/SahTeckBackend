@@ -14,11 +14,11 @@ import lombok.Data;
 public class MedicalFile {
     @Id
     @Column(name = "doc_id")
-    private Long id;
+    private String id;
     @Column(name = "name")
     private String name;
     @Lob
-    @Column(name = "file", length = 1000000)
+    @Column(name = "file", length = 1000000000)
     private byte[] file;
     @Column(name = "user_id")
     private String userId;

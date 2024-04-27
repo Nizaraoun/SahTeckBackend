@@ -37,7 +37,7 @@ public ResponseEntity<?> GetMessage(Principal principal ,@RequestBody ChatDTO ch
     @GetMapping("/Get_All_Message")
     public List<ChatDTO> GetAllMessage(Principal principal ,@RequestParam("role")String role ) {
         String connectedUser = principal.getName();
-       
+        System.out.println(connectedUser);
             return chatService.GetAllMessage(connectedUser,role );
         
     

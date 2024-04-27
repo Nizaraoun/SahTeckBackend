@@ -3,6 +3,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,9 +50,20 @@ public class ReservationController {
 
     }
 
+    // Get Upcoming Reservations
+    @GetMapping("/getUpcomingReservations")
+    public List<ReservationDTO> getUpcomingReservations(@RequestParam String id ){
+        return reservationService.getUserReservations(id);
+    }
+    // Cancel Reservation
+    @PostMapping("/CancelReservation")
+    public ResponseEntity<String> deleteReservation(@RequestParam Long id) {
+        return reservationService.deleteReservation(id);
+    }
 
 
 
+    
 
 
     

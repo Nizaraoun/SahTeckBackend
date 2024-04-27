@@ -14,9 +14,8 @@ import lombok.Data;
 @Entity
 public class Document {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "doc_id")
-    private Long id;
+    private String id;
     @Column(name = "number_files")
     private int number;
     @Column(name = "description")

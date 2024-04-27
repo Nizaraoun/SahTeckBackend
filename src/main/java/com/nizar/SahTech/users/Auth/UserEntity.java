@@ -33,7 +33,7 @@ public class UserEntity {
     @Column(name = "Cin")
     private String cin;
     @Lob
-    @Column(name = "Image" ,length = 1000000)
+    @Column(name = "Image" ,length = 20000000)
     private  byte[]  Image;
     @Column(name = "IsActive")
     private boolean isActive ;

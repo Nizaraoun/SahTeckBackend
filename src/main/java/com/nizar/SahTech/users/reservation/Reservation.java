@@ -23,8 +23,14 @@ public class Reservation {
     @Column(name = "Doctorname")
     private String doctorname;
     @Column(name = "Id_patient")
-    private String id_patient;
+    private String idpatient;
     @Column(name = "Id_praticien")
     private String  id_praticien;
+    @Column(name = "cancel")
+    private boolean cancel;
+    @Column(name = "Completed")
+    private double completed;
+    @Column(name = "Specialty")
+    private String specialty;
     
 }

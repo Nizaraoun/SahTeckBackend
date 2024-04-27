@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class MedicalFileDTO {
-    private Long id;
+    private String id;
     private String name;
     private byte[]  file;
     private String txt;

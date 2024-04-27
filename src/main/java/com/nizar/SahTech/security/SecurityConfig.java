@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
          http.authorizeHttpRequests(authorizeRequests ->{
                 authorizeRequests
-                        .requestMatchers("/authenticate","/register","/registerdoctor","/send-otp").permitAll()
+                        .requestMatchers("/authenticate","/register","/registerdoctor","/otp/**").permitAll()
                         .requestMatchers("/api/**").authenticated();
     });
         http.cors( AbstractHttpConfigurer::disable );

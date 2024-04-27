@@ -13,6 +13,7 @@ public interface DoctorRepo extends JpaRepository<DoctorEntity, String>{
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
         Optional<DoctorEntity> findByEmail(String email);
+        Optional<DoctorEntity> findByUsername(String email);
 
 
     // default DoctorEntity findDocList() {

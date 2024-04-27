@@ -22,4 +22,6 @@ public class Chat {
     private String doctorId;
     @Column(name = "user_id")
     private String userId;
+    @Column(name = "last_message")
+    private String lastmsg;
 }

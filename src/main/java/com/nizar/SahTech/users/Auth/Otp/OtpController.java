@@ -1,6 +1,7 @@
 package com.nizar.SahTech.users.Auth.Otp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/otp")
 @Slf4j
 @RequiredArgsConstructor
 public class OtpController {
@@ -22,7 +23,7 @@ public class OtpController {
 	@GetMapping("/process")
 	public String processSMS() {
 		return "SMS sent";
-	}
+	} 
 
 	@PostMapping("/send-otp")
 	public OtpResponseDto sendOtp(@RequestBody OtpRequest otpRequest) {
@@ -30,7 +31,7 @@ public class OtpController {
 		return smsService.sendSMS(otpRequest);
 	}
 	@PostMapping("/validate-otp")
-    public String validateOtp(@RequestBody OtpValidationRequest otpValidationRequest) {
+	public ResponseEntity<?> validateOtp(@RequestBody OtpValidationRequest otpValidationRequest) {
 		log.info("inside validateOtp :: "+otpValidationRequest.getUsername()+" "+otpValidationRequest.getOtpNumber());
 		return smsService.validateOtp(otpValidationRequest);
     }
