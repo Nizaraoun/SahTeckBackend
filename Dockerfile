@@ -1,5 +1,5 @@
 # Use a base image with Java and Maven installed
-FROM maven:3.8.4-openjdk-11 AS build
+FROM maven:3.8.4-openjdk-17 AS build  # Update the Maven version and Java version accordingly
 
 # Set the working directory in the container
 WORKDIR /app
