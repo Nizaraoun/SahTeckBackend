@@ -6,4 +6,5 @@ public class DocumentDTO {
     private int number;
     private String description;
     private Long userId;
+    private String code;
 }

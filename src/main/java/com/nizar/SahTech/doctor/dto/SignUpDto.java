@@ -1,5 +1,4 @@
 package com.nizar.SahTech.doctor.dto;
-
 import lombok.Data;
 
 @Data

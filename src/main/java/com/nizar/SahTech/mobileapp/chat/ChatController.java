@@ -27,8 +27,8 @@ public class ChatController {
     }
 @GetMapping("/Get_Message")
 public ResponseEntity<?> GetMessage(Principal principal ,@RequestBody ChatDTO chatDTO) {
-    if (chatDTO.getConversationId() == null){
-        return ResponseEntity.badRequest().body("invalid conversation id");
+    if (chatDTO.getDoctorId() == null){
+        return ResponseEntity.badRequest().body("invalid conversation ");
     }
     else {
         String connectedUser = principal.getName();
@@ -37,7 +37,6 @@ public ResponseEntity<?> GetMessage(Principal principal ,@RequestBody ChatDTO ch
     @GetMapping("/Get_All_Message")
     public List<ChatDTO> GetAllMessage(Principal principal ,@RequestParam("role")String role ) {
         String connectedUser = principal.getName();
-        System.out.println(connectedUser);
             return chatService.GetAllMessage(connectedUser,role );
         
     

@@ -51,7 +51,7 @@ public class DoctorService {
         }
 
         DoctorEntity doctor = new DoctorEntity();
-        doctor.setId(IdGenerator.generateId());
+        doctor.setId(IdGenerator.generateId(24));
         doctor.setUsername(signupDTO.getUsername());
         doctor.setPhone(signupDTO.getPhone());
         doctor.setEmail(signupDTO.getEmail());

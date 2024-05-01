@@ -45,7 +45,7 @@ public class AuthService {
    UserEntity user = new UserEntity();
    byte[] image = new byte[0];
         user.setUsername(signupDTO.getUsername());
-        user.setId(IdGenerator.generateId());
+        user.setId(IdGenerator.generateId(24));
         user.setPhone(signupDTO.getPhone());
         user.setCin(signupDTO.getCin());
         user.setImage(image);

@@ -1,11 +1,7 @@
-# Use an OpenJDK base image
-FROM openjdk:11-jre-slim
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the Spring Boot application JAR file into the container
-COPY target/my-spring-boot-app.jar /app/my-spring-boot-app.jar
-
-# Specify the command to run the Spring Boot application
-CMD ["java", "-jar", "/app/my-spring-boot-app.jar"]
+FROM maven:3.8.5-jdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/*.jar SAHTECH.jar
+Expose 8080
+ENTRYPOINT ["java","-jar","/SAHTECH.jar"]

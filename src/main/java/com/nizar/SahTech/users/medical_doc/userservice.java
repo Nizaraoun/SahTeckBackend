@@ -110,12 +110,12 @@ public ResponseEntity<?> addMedicalDocForUser(DocumentDTO documentDTO, Principal
 MedicalFile file = new MedicalFile();
 byte[] bytes = "".getBytes();
 
-
     try {
         if (!document.isPresent()) {
             doc.setDescription(documentDTO.getDescription());
             doc.setNumber(0);
-            doc.setId( IdGenerator.generateId());
+            doc.setId( IdGenerator.generateId(24));
+            doc.setDocCode(IdGenerator.generateId(5));
             doc.setUserId(user.get().getId());
             docRepository.save(doc);
             file.setId(doc.getId());

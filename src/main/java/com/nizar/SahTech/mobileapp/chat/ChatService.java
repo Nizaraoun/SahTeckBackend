@@ -46,7 +46,7 @@ public class ChatService {
                     chat.setLastmsg(formattedDateTime);
                 } else {
                     chat = new Chat();
-                    chat.setId(IdGenerator.generateId());
+                    chat.setId(IdGenerator.generateId(24));
                     chat.setUserId(chatDTO.getUserId());
                     chat.setDoctorId(doctor.getId());
                     chat.setMessage(msg);
@@ -75,7 +75,7 @@ public class ChatService {
 
                 } else {
                     chat = new Chat();
-                    chat.setId(IdGenerator.generateId());
+                    chat.setId(IdGenerator.generateId(24));
                     chat.setUserId(user.getId());
                     chat.setDoctorId(chatDTO.getDoctorId());
                     chat.setMessage(msg);
@@ -91,7 +91,7 @@ public class ChatService {
     }
 
     public ResponseEntity<?> GetMessage(String connectedUser, ChatDTO chatDTO) {
-        Optional<Chat> chatOptional = chatRepository.findById(chatDTO.getConversationId());
+        Optional<Chat> chatOptional = chatRepository.findByDoctorIdAndUserId(chatDTO.getDoctorId(), chatDTO.getUserId());
         try {
             if (chatOptional.isPresent()) {
                 Chat chat = chatOptional.get();
@@ -161,6 +161,7 @@ public class ChatService {
                 chatDTO.setImage(doctorOptional.get().getImage());
                 chatDTO.setMessage(GetLastLine(conversation));
                 chatDTO.setLastmsg(chat.getLastmsg());
+                chatDTO.setDoctorId(doctorOptional.get().getId());
                 System.out.println(chatDTO.getLastmsg());
                 targetList.add(chatDTO);
 

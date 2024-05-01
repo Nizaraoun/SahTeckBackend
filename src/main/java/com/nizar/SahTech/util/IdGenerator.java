@@ -4,7 +4,7 @@ import java.util.Random;
 
 
 public class IdGenerator {
-    public static String generateId() {
+    public static String generateId(int lenth) {
         final Random random = new Random();
         final String numbers = "0123456789";
         final String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -12,10 +12,11 @@ public class IdGenerator {
         final String allChars = numbers + lowercaseLetters + uppercaseLetters;
 
         StringBuilder value = new StringBuilder();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < lenth; i++) {
             value.append(allChars.charAt(random.nextInt(allChars.length())));
         }
 
         return value.toString();
     }
+    
 }
