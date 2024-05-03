@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sahtech
-    username: root
-    password: 
+    url: jdbc:mysql://sql6.freesqldatabase.com/sql6702920?useSSL=false
+    username: sql6702920
+    password: M4kwAldi1Y
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
