@@ -20,9 +20,9 @@ public class DoctorEntity {
     @Id
     @Column(name = "Id")
     private String id;
-    @Column(name = "name")
+    @Column(name = "Username")
     private String username;
-    @Column(name = "speciality")
+    @Column(name = "Speciality")
     private String speciality;
     @Column(name = "email")
     private String email;

@@ -21,8 +21,5 @@ public class Role implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String name;
-
-
-
 }
 

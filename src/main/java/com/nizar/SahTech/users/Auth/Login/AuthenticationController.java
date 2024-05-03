@@ -1,20 +1,10 @@
 package com.nizar.SahTech.users.Auth.Login;
-
-
-import com.nizar.SahTech.role.repository.RoleRep;
 import com.nizar.SahTech.security.JWTGenerator;
 import com.nizar.SahTech.users.Auth.AuthResponseDTO;
 import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
-import com.nizar.SahTech.users.Auth.Otp.SmsService;
-import com.nizar.SahTech.util.JwtUtil;
-import com.twilio.twiml.voice.Sms;
-
 import java.util.Optional;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
-private final SmsService smsService;
 private final UserRepository userRepository;
 
 

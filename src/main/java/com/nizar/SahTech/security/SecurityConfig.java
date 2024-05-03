@@ -22,7 +22,7 @@ public class SecurityConfig {
     private JwtAuthEntryPoint authEntryPoint;
     private CustomUserDetailsService userDetailsService;
     @Autowired
-    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint authEntryPoint) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService, JwtAuthEntryPoint authEntryPoint ) {
         this.userDetailsService = userDetailsService;
         this.authEntryPoint = authEntryPoint;
     }
@@ -31,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
          http.authorizeHttpRequests(authorizeRequests ->{
                 authorizeRequests
-                        .requestMatchers("/authenticate","/register","/registerdoctor","/otp/**").permitAll()
+                        .requestMatchers("/authenticate","/register","/registerdoctor","/otp/**","/login").permitAll()
                         .requestMatchers("/api/**").authenticated();
     });
         http.cors( AbstractHttpConfigurer::disable );

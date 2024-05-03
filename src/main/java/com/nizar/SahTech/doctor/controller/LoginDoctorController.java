@@ -1,12 +1,8 @@
 package com.nizar.SahTech.doctor.controller;
 import com.nizar.SahTech.doctor.repository.DoctorRepo;
 import com.nizar.SahTech.security.JWTGenerator;
-import com.nizar.SahTech.users.Auth.AuthResponseDTO;
-import com.nizar.SahTech.users.Auth.UserEntity;
-import com.nizar.SahTech.users.Auth.Login.AuthenticationDTO;
-import com.nizar.SahTech.users.medical_doc.DocRepository;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,30 +10,28 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.nizar.SahTech.doctor.dto.AuthDrResponseDTO;
 import com.nizar.SahTech.doctor.entity.DoctorEntity;
 
 @RestController
-@RequestMapping("/doctor")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LoginDoctorController {
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
 private final DoctorRepo doctorRepository;
-    @RequestMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationDTO authenticationDTO ) {
+    @PostMapping("/login")
+    public ResponseEntity<?> logindoctor(@RequestBody DrAuthenticationDTO authenticationDTO ) {
         try {
-            
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                        authenticationDTO.getEmail(),
-                        authenticationDTO.getPassword()
-                    )
-            );
+                new UsernamePasswordAuthenticationToken(
+                    authenticationDTO.getEmail(),
+                    authenticationDTO.getPassword()
+                )
 
+        );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
            Optional<DoctorEntity> doctor = doctorRepository.findByUsername(authenticationDTO.getEmail());
@@ -46,8 +40,9 @@ private final DoctorRepo doctorRepository;
             return new ResponseEntity<>(new AuthDrResponseDTO(token, doctor) , HttpStatus.OK);
 
         } catch (AuthenticationException e) {
+            System.out.println(e);
             // Authentication failed, return an error message
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid username or password for doctor ", HttpStatus.UNAUTHORIZED);
         }
     }
 

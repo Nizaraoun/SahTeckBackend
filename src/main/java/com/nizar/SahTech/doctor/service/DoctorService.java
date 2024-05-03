@@ -55,8 +55,9 @@ public class DoctorService {
         doctor.setUsername(signupDTO.getUsername());
         doctor.setPhone(signupDTO.getPhone());
         doctor.setEmail(signupDTO.getEmail());
+        doctor.setSpeciality(signupDTO.getSpecialty());
         doctor.setPassword(passwordEncoder.encode(signupDTO.getPassword()));
-
+        doctor.setIsActive(false);
         doctor.setCreationDate(new Date(0));
 
         Optional<Role> doctorRoleOptional = roleRepository.findByName("DOCTOR");
