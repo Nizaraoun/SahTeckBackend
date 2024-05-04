@@ -1,6 +1,7 @@
-package com.nizar.SahTech.users.controller;
+package com.nizar.SahTech.mobileapp.reservation;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nizar.SahTech.users.reservation.Reservation;
-import com.nizar.SahTech.users.reservation.ReservationDTO;
-import com.nizar.SahTech.users.reservation.ReservationService;
+import com.nizar.SahTech.doctor.entity.DoctorEntity;
+import com.nizar.SahTech.doctor.repository.DoctorRepo;
+import com.twilio.twiml.voice.Connect;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 public class ReservationController {
     final private ReservationService reservationService;
+    final private DoctorRepo doctorRepo;
     @PostMapping("/addReservation")
     public ResponseEntity<String> addReservation(@RequestBody ReservationDTO reservationDTO , Principal connecteduser) {
         try {
@@ -61,6 +63,14 @@ public class ReservationController {
         return reservationService.deleteReservation(id);
     }
 
+    //Get all reservations for the web dashboard
+    @GetMapping("/getAllReservationsForDashboard")
+    public List<ReservationDTO> getAllReservationsForDashboard(Principal connectedDoctor) {
+        Optional<DoctorEntity> doctor = doctorRepo.findByUsername(connectedDoctor.getName());
+        return reservationService.getAllReservationsForDashboard(
+            doctor.get().getId()
+        );
+    }
 
 
     

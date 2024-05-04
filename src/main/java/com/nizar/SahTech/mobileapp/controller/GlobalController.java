@@ -10,7 +10,7 @@ import com.nizar.SahTech.doctor.entity.DoctorEntity;
 import com.nizar.SahTech.mobileapp.dto.Announce;
 import com.nizar.SahTech.mobileapp.dto.RatingDTO;
 import com.nizar.SahTech.mobileapp.entity.Announcement;
-import com.nizar.SahTech.mobileapp.service.AppService;
+import com.nizar.SahTech.mobileapp.service.GlobalAppService;
 
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class GetPubController {
+public class GlobalController {
     //Injecting part
-    private final  AppService appService ;
+    private final  GlobalAppService appService ;
 
     //Get all publication to the app user
     @GetMapping("/publication")
@@ -43,4 +43,7 @@ public ResponseEntity<String> addRating(@RequestBody RatingDTO ratingDTO) {
 public List<DoctorEntity> recommendation() {
     return appService.GetRecommended_Doctors();
 }
+@GetMapping("/get_doctor_By_Speciality")
+public List<DoctorEntity> getDoctorBySpeciality(String speciality) {
+    return appService.GetDoctorBySpeciality(speciality);}
 }

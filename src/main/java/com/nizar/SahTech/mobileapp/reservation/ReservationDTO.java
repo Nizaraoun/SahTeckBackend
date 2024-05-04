@@ -1,4 +1,4 @@
-package com.nizar.SahTech.users.reservation;
+package com.nizar.SahTech.mobileapp.reservation;
 import lombok.Data;
 @Data
 public class ReservationDTO {
@@ -13,5 +13,9 @@ public class ReservationDTO {
     private byte[] image;
     private boolean cancel;
     private double completed;
+    private String patientname;
+    private String patientphone;
+    private String patientemail;
+    
 
 }

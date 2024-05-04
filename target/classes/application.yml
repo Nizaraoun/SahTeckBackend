@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://sql6.freesqldatabase.com/sql6702920?useSSL=false
-    username: sql6702920
-    password: M4kwAldi1Y
+    url: jdbc:mysql://localhost:3306/sahtech
+    username: root
+    password: 
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -29,4 +29,3 @@ mailersend:
   apiKey: mlsn.d540614a88d96b3bb937b25f85e962c95730ce9b6a199d41f03551fa14ce6363
   fromEmail: nizaraoun1919@gmail.com
   fromName: Nizar Aoun
-

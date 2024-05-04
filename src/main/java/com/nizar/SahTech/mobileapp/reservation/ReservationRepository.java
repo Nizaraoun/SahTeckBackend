@@ -1,4 +1,4 @@
-package com.nizar.SahTech.users.reservation;
+package com.nizar.SahTech.mobileapp.reservation;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long>{
-    @Query("SELECT r.heure FROM Reservation r WHERE r.id_praticien = :idPraticien AND r.jour = :jour")
+    @Query("SELECT r.heure FROM Reservation r WHERE r.iddoctor = :idPraticien AND r.jour = :jour")
     List<String> findReservedHoursForDoctorOnDay(@Param("idPraticien") String idPraticien, @Param("jour") String jour);
 
     Optional<List<Reservation>> findReservationsByIdpatient(String userId);
+    Optional<List<Reservation>> findByIddoctor(String idPraticien);
 }

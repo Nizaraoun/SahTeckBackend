@@ -1,4 +1,4 @@
-package com.nizar.SahTech.users.reservation;
+package com.nizar.SahTech.mobileapp.reservation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +25,7 @@ public class Reservation {
     @Column(name = "Id_patient")
     private String idpatient;
     @Column(name = "Id_praticien")
-    private String  id_praticien;
+    private String  iddoctor;
     @Column(name = "cancel")
     private boolean cancel;
     @Column(name = "Completed")

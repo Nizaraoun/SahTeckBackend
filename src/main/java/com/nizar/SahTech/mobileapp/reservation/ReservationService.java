@@ -1,4 +1,4 @@
-package com.nizar.SahTech.users.reservation;
+package com.nizar.SahTech.mobileapp.reservation;
 import java.util.List;
 import java.util.Optional;
 import	java.util.ArrayList;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.nizar.SahTech.doctor.entity.DoctorEntity;
 import com.nizar.SahTech.doctor.repository.DoctorRepo;
+import com.nizar.SahTech.users.Auth.UserEntity;
+import com.nizar.SahTech.users.Auth.UserRepository;
+import com.twilio.rest.chat.v1.service.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class ReservationService {
     final private ReservationRepository reservationRepository;
     final private DoctorRepo doctorRepo;
+    final private UserRepository userRepository;
     //add reservation
  public   ResponseEntity<String> addReservation(ReservationDTO reservationDTO) {
     Optional<DoctorEntity> doctor = doctorRepo.findById(reservationDTO.getId_praticien());
@@ -28,7 +32,7 @@ public class ReservationService {
             reservation.setUsername(reservationDTO.getUsername());
             reservation.setDoctorname(doctor.get().getUsername());
             reservation.setIdpatient(reservationDTO.getId_patient());
-            reservation.setId_praticien(reservationDTO.getId_praticien());
+            reservation.setIddoctor(reservationDTO.getId_praticien());
             reservation.setCancel(false);
             reservation.setCompleted(0);
             reservation.setSpecialty(doctor.get().getSpeciality());
@@ -80,26 +84,65 @@ public class ReservationService {
         return reservations;
     }
     
-    public ReservationDTO convertToDTO(Reservation reservation) {
-            Optional<DoctorEntity> doctor = doctorRepo.findById(reservation.getId_praticien());
-            ReservationDTO dto = new ReservationDTO();
-            dto.setId(reservation.getId());
-            dto.setId_patient(reservation.getIdpatient());
-            dto.setId_praticien(reservation.getId_praticien());
-            dto.setJour(reservation.getJour());
-            dto.setHeure(reservation.getHeure());
-            dto.setUsername(reservation.getUsername());
-            dto.setDoctorname(reservation.getDoctorname());
-            dto.setSpecialty(reservation.getSpecialty());
-            dto.setImage(doctor.get().getImage());
-            dto.setCancel(reservation.isCancel());
-            dto.setCompleted(reservation.getCompleted());
 
-       
-            return dto;
+// get all reservations for the web dashboard
+    public List<ReservationDTO> getAllReservationsForDashboard(String id) {
+        List<ReservationDTO> reservations = new ArrayList<>();
+        Optional<List<Reservation>> reservationsOptional = reservationRepository.findByIddoctor(id);
+
+
+        try {
+            
+            reservationsOptional.ifPresent(reservationList -> {
+
+                for (Reservation reservation : reservationList) {
+                    ReservationDTO reservationDTO = reservationList(reservation);
+                    reservations.add(reservationDTO);
+                }
+            });
+            
+        } catch (Exception e) {
+            // Handle exception
         }
-     
+        return reservations;
     
+    }
+
+
+    //function to convert reservation to DTO
+    public ReservationDTO convertToDTO(Reservation reservation) {
+        Optional<DoctorEntity> doctor = doctorRepo.findById(reservation.getIddoctor());
+        ReservationDTO dto = new ReservationDTO();
+        dto.setId(reservation.getId());
+        dto.setId_patient(reservation.getIdpatient());
+        dto.setId_praticien(reservation.getIddoctor());
+        dto.setJour(reservation.getJour());
+        dto.setHeure(reservation.getHeure());
+        dto.setUsername(reservation.getUsername());
+        dto.setDoctorname(reservation.getDoctorname());
+        dto.setSpecialty(reservation.getSpecialty());
+        dto.setImage(doctor.get().getImage());
+        dto.setCancel(reservation.isCancel());
+        dto.setCompleted(reservation.getCompleted());
+
+   
+        return dto;
+    }
+    public ReservationDTO reservationList(Reservation reservation ) {
+        Optional <UserEntity> user = userRepository.findById(reservation.getIdpatient());
+
+        ReservationDTO dto = new ReservationDTO();
+    
+        if (reservation.getCompleted() == 0 || reservation.isCancel()  == false) {
+            dto.setId(reservation.getId());
+            dto.setPatientname(user.get().getEmail());
+            dto.setId_patient(reservation.getIdpatient());
+            dto.setJour(reservation.getJour());
+            dto.setHeure(reservation.getHeure()); 
+            dto.setPatientphone(user.get().getPhone());
+        }
+        return dto;
+    }
 
         
         

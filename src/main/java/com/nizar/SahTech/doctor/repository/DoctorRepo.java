@@ -12,8 +12,9 @@ import com.nizar.SahTech.users.Auth.UserEntity;
 public interface DoctorRepo extends JpaRepository<DoctorEntity, String>{
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-        Optional<DoctorEntity> findByEmail(String email);
+   Optional<DoctorEntity> findByEmail(String email);
         Optional<DoctorEntity> findByUsername(String email);
+        List<DoctorEntity> findBySpeciality(String speciality);
 
 
     // default DoctorEntity findDocList() {

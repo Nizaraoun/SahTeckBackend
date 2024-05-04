@@ -18,7 +18,7 @@ import com.nizar.SahTech.mobileapp.repository.Ratingrepository;
 import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
-public class AppService {
+public class GlobalAppService {
     private final Pubrepository pubrepository;
     private final Ratingrepository ratingrepository;
     private final DoctorRepo doctorRepo;
@@ -127,6 +127,22 @@ public class AppService {
              return ResponseEntity.badRequest().body("Failed to add rating: " + e.getMessage());
          }
        
+    }
+    //Get doctor By speciality
+    public List<DoctorEntity> GetDoctorBySpeciality(String speciality) {
+        List<DoctorEntity> list =doctorRepo.findBySpeciality(speciality);
+        list.removeIf(doctor -> !doctor.getIsActive());
+        list.forEach(doctor -> {
+            doctor.setPassword(null);
+            
+            doctor.setIsActive(null);
+            doctor.setRoles(null);
+            doctor.setLongitude(null);
+            doctor.setLatitude(null);
+         
+            doctor.setCreationDate(null);
+        });
+        return list;
     }
 
 }
