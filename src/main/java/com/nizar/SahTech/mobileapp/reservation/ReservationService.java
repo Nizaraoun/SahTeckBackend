@@ -96,8 +96,11 @@ public class ReservationService {
             reservationsOptional.ifPresent(reservationList -> {
 
                 for (Reservation reservation : reservationList) {
-                    ReservationDTO reservationDTO = reservationList(reservation);
-                    reservations.add(reservationDTO);
+                    if (reservation.getCompleted() == 0 || reservation.isCancel() == false) {
+                        ReservationDTO reservationDTO = reservationList(reservation);
+                        reservations.add(reservationDTO);
+
+                    }
                 }
             });
             
@@ -133,15 +136,14 @@ public class ReservationService {
 
         ReservationDTO dto = new ReservationDTO();
     
-        if (reservation.getCompleted() == 0 || reservation.isCancel()  == false) {
+    
             dto.setId(reservation.getId());
             dto.setPatientname(user.get().getEmail());
             dto.setId_patient(reservation.getIdpatient());
             dto.setJour(reservation.getJour());
             dto.setHeure(reservation.getHeure()); 
             dto.setPatientphone(user.get().getPhone());
-        }
-        return dto;
+                return dto;
     }
 
         

@@ -41,8 +41,8 @@ public class DoctorService {
 
 
     public ResponseEntity <String> registerDoctor(SignUpDto signupDTO) {
-        if (docRepository.existsByUsername(signupDTO.getUsername())) {
-            return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
+        if (docRepository.existsByPhone(signupDTO.getPhone())) {
+            return new ResponseEntity<>("Phone is taken!", HttpStatus.BAD_REQUEST);
         }
 
         // Check if the email is already registered

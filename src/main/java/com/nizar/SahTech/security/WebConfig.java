@@ -12,5 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:4200") // Whitelist your Angular app's origin
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Allowed HTTP methods
                 .allowCredentials(true); // Allow cookies, authorization headers, etc.
+
+                
     }
 }

@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/authenticate","/register","/registerdoctor","/otp/**","/login").permitAll()
                         .requestMatchers("/api/**").authenticated();
     });
-        http.cors( AbstractHttpConfigurer::disable );
+        // http.cors( AbstractHttpConfigurer::disable );
         http.  csrf( AbstractHttpConfigurer::disable );
         http.formLogin(AbstractHttpConfigurer::disable);
                 http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
