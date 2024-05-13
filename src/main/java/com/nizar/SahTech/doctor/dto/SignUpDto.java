@@ -9,4 +9,5 @@ public class SignUpDto {
     private String password;
     private String specialty;
     private String image;
+    private String followrs;
 }

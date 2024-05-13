@@ -107,9 +107,9 @@ public ResponseEntity<?> addMedicalDocForUser(DocumentDTO documentDTO, Principal
     if (documentDTO.getDescription() != null) {
             Optional<Document> document = docRepository.findByUserIdAndDescription(user.get().getId(), documentDTO.getDescription());
     Document doc = new Document();
-MedicalFile file = new MedicalFile();
-byte[] bytes = "".getBytes();
-
+    MedicalFile file = new MedicalFile();
+    byte[] bytes = "".getBytes();
+ 
     try {
         if (!document.isPresent()) {
             doc.setDescription(documentDTO.getDescription());
@@ -122,10 +122,8 @@ byte[] bytes = "".getBytes();
             file.setName(user.get().getEmail());
             file.setUserId(user.get().getId());
             file.setFile(bytes);
-
             docFileRepository.save(file);
             return ResponseEntity.ok("Medical Doc added successfully for user with ID: " + user.get().getId());
-          
         }
         
       

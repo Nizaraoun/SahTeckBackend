@@ -9,7 +9,6 @@ import java.util.ArrayList; // Import the ArrayList class
 import java.time.LocalDateTime;
 import com.nizar.SahTech.doctor.entity.DoctorEntity;
 import com.nizar.SahTech.doctor.repository.DoctorRepo;
-import com.nizar.SahTech.mobileapp.chat.dto.ChatDTO;
 import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
 import com.nizar.SahTech.util.IdGenerator;

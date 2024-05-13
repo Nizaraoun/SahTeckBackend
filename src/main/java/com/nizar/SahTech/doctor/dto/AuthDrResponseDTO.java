@@ -13,7 +13,7 @@ public class AuthDrResponseDTO {
     public AuthDrResponseDTO(String accessToken , Optional<DoctorEntity> doctor2) {
         this.accessToken = accessToken;
         this.doctor = doctor2;
-    }
+    }   
 
 
 

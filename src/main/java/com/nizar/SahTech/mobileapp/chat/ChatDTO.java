@@ -1,4 +1,4 @@
-package com.nizar.SahTech.mobileapp.chat.dto;
+package com.nizar.SahTech.mobileapp.chat;
 
 import lombok.Data;
 @Data

@@ -1,4 +1,4 @@
-package com.nizar.SahTech.mobileapp.doc_peciality;
+package com.nizar.SahTech.mobileapp.doctor_speciality;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

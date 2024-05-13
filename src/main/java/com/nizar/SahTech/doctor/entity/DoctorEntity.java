@@ -43,6 +43,8 @@ public class DoctorEntity {
     private byte[] image;
     @Column(name = "rating")
     private Double rating;
+    @Column(name = "followers")
+    private Integer followers;
     
       @Temporal(TemporalType.DATE)
     private Date creationDate;
