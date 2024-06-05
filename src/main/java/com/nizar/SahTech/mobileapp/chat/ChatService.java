@@ -28,12 +28,11 @@ public class ChatService {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedDateTime = currentDateTime.format(timeFormatter);
 
-        if (chatDTO.getUserId() != null) {
-            Optional<DoctorEntity> doctorOptional = doctorRepo.findByEmail(connectedUser);
+        if (chatDTO.getConversationId() != null) {
+            Optional<DoctorEntity> doctorOptional = doctorRepo.findByUsername(connectedUser);
             if (doctorOptional.isPresent()) {
                 DoctorEntity doctor = doctorOptional.get();
-                Optional<Chat> existingChat = chatRepository.findByDoctorIdAndUserId(doctor.getId(),
-                chatDTO.getUserId());
+                Optional<Chat> existingChat = chatRepository.findById(chatDTO.getConversationId());
                 String msgg = doctor.getId() +"  :"+ chatDTO.getMessage() + "\n";
                 byte[] msg = msgg.getBytes();
                 Chat chat;
@@ -105,6 +104,22 @@ public class ChatService {
         return null;  
 
     }
+    public ResponseEntity<?> GetMessageBychatId( ChatDTO chatDTO) {
+        Optional<Chat> chatOptional = chatRepository.findById(chatDTO.getConversationId());
+        try {
+            if (chatOptional.isPresent()) {
+                Chat chat = chatOptional.get();
+                byte[] message = chat.getMessage();
+                String msg = new String(message);
+                return ResponseEntity.ok(msg);
+            } else {
+                return ResponseEntity.badRequest().body("No messages found");
+            }
+        } catch (Exception e) {
+        }
+        return null;  
+
+    }
 
     // concatenate two byte arrays
     private byte[] concatenateByteArrays(byte[] a, byte[] b) {
@@ -122,17 +137,21 @@ public class ChatService {
 
         if(role.equals("doctor"))
         {
-            Optional<DoctorEntity> doctorOptional = doctorRepo.findByEmail(connectedUser);
+            Optional<DoctorEntity> doctorOptional = doctorRepo.findByUsername(connectedUser);
+            System.out.println(doctorOptional.get().getId());
+
             List<Chat> chatOptional = chatRepository.findByDoctorId(doctorOptional.get().getId());
             for (Chat chat : chatOptional) {
-                Optional<UserEntity> userOptional = userRepository.findByUsername(chat.getUserId());
+                Optional<UserEntity> userOptional = userRepository.findById(chat.getUserId());                               
                 ChatDTO chatDTO = new ChatDTO();
                 byte[] message = chat.getMessage();
                 String conversation = new String(message);
                 // chatDTO.setMessage(conversation);
-                chatDTO.setUserName(userOptional.get().getUsername());
+                chatDTO.setUserName(userOptional.get().getEmail());
                 chatDTO.setImage(userOptional.get().getImage());
+                chatDTO.setUserId(userOptional.get().getId());
                 chatDTO.setMessage(GetLastLine(conversation));
+                chatDTO.setConversationId(chat.getId());
                 chatDTO.setLastmsg(chat.getLastmsg());
                 targetList.add(chatDTO);
 
@@ -156,7 +175,7 @@ public class ChatService {
                 byte[] message = chat.getMessage();
                 String conversation = new String(message);
                 // chatDTO.setMessage(conversation);
-                chatDTO.setDoctorName(doctorOptional.get().getUsername());
+                chatDTO.setDoctorName(doctorOptional.get().getEmail());
                 chatDTO.setImage(doctorOptional.get().getImage());
                 chatDTO.setMessage(GetLastLine(conversation));
                 chatDTO.setLastmsg(chat.getLastmsg());

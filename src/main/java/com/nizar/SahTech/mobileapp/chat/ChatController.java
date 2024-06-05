@@ -19,18 +19,18 @@ public class ChatController {
     @PostMapping("/Send_Message")
     public ResponseEntity<?> SendMessage(@RequestBody ChatDTO chatDTO , Principal princepal ) {
         String connectedUser = princepal.getName();
-        System.out.println(connectedUser);
      return   chatService.SendMessage(chatDTO  , connectedUser);
     }
-@GetMapping("/Get_Message")
+@PostMapping("/Get_Message")
 public ResponseEntity<?> GetMessage(Principal principal ,@RequestBody ChatDTO chatDTO) {
-    if (chatDTO.getDoctorId() == null){
-        return ResponseEntity.badRequest().body("invalid conversation ");
+    if (chatDTO.getConversationId() != null){
+        return chatService.GetMessageBychatId(chatDTO) ;
     }
     else {
         String connectedUser = principal.getName();
         return chatService.GetMessage(connectedUser ,chatDTO);}
     }
+    
     @GetMapping("/Get_All_Message")
     public List<ChatDTO> GetAllMessage(Principal principal ,@RequestParam("role")String role ) {
         String connectedUser = principal.getName();

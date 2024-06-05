@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.nizar.SahTech.doctor.dto.AuthDrResponseDTO;
 import com.nizar.SahTech.doctor.entity.DoctorEntity;
+import com.nizar.SahTech.doctor.list_patient.DoctorPatients;
+import com.nizar.SahTech.doctor.list_patient.DoctorPatientsRepository;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class LoginDoctorController {
     private final AuthenticationManager authenticationManager;
     private final JWTGenerator jwtGenerator;
 private final DoctorRepo doctorRepository;
+private final DoctorPatientsRepository doctorPatientsRepository;
     @PostMapping("/login")
     public ResponseEntity<?> logindoctor(@RequestBody DrAuthenticationDTO authenticationDTO ) {
         try {
@@ -30,14 +33,13 @@ private final DoctorRepo doctorRepository;
                     authenticationDTO.getEmail(),
                     authenticationDTO.getPassword()
                 )
-
         );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
            Optional<DoctorEntity> doctor = doctorRepository.findByUsername(authenticationDTO.getEmail());
            doctor.get().setPassword(null);
-
-            return new ResponseEntity<>(new AuthDrResponseDTO(token, doctor) , HttpStatus.OK);
+           Optional<DoctorPatients> doctorPatients = doctorPatientsRepository.findByDoctorId(doctor.get().getId());
+            return new ResponseEntity<>(new AuthDrResponseDTO(token, doctor , doctorPatients.get().getPatientsCount()) , HttpStatus.OK);
 
         } catch (AuthenticationException e) {
             System.out.println(e);
@@ -45,8 +47,4 @@ private final DoctorRepo doctorRepository;
             return new ResponseEntity<>("Invalid username or password for doctor ", HttpStatus.UNAUTHORIZED);
         }
     }
-
-
-
-
 }

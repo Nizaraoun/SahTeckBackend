@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.nizar.SahTech.doctor.entity.DoctorEntity;
+import com.nizar.SahTech.doctor.list_patient.DoctorPatients;
+import com.nizar.SahTech.doctor.list_patient.DoctorPatientsRepository;
 import com.nizar.SahTech.doctor.repository.DoctorRepo;
 import com.nizar.SahTech.users.Auth.UserEntity;
 import com.nizar.SahTech.users.Auth.UserRepository;
+import com.nizar.SahTech.users.following_list_doctor.followinglist;
 import com.twilio.rest.chat.v1.service.User;
 
 import lombok.RequiredArgsConstructor;
@@ -21,17 +24,20 @@ public class ReservationService {
     final private ReservationRepository reservationRepository;
     final private DoctorRepo doctorRepo;
     final private UserRepository userRepository;
+        private final DoctorPatientsRepository doctorPatientsRepository;
+
     //add reservation
  public   ResponseEntity<String> addReservation(ReservationDTO reservationDTO) {
     Optional<DoctorEntity> doctor = doctorRepo.findById(reservationDTO.getId_praticien());
+    Optional<UserEntity> user = userRepository.findByUsername(reservationDTO.getPatientemail());
     
         Reservation reservation = new Reservation();
         try {
             reservation.setJour(reservationDTO.getJour());
             reservation.setHeure(reservationDTO.getHeure());
-            reservation.setUsername(reservationDTO.getUsername());
-            reservation.setDoctorname(doctor.get().getUsername());
-            reservation.setIdpatient(reservationDTO.getId_patient());
+            reservation.setUsername(user.get().getEmail());
+            reservation.setDoctorname(doctor.get().getEmail());
+            reservation.setIdpatient(user.get().getId());
             reservation.setIddoctor(reservationDTO.getId_praticien());
             reservation.setCancel(false);
             reservation.setCompleted(0);
@@ -96,7 +102,7 @@ public class ReservationService {
             reservationsOptional.ifPresent(reservationList -> {
 
                 for (Reservation reservation : reservationList) {
-                    if (reservation.getCompleted() == 0 || reservation.isCancel() == false) {
+                    if (reservation.getCompleted() == 0 && reservation.isCancel() == false) {
                         ReservationDTO reservationDTO = reservationList(reservation);
                         reservations.add(reservationDTO);
 
@@ -123,6 +129,7 @@ public class ReservationService {
         dto.setHeure(reservation.getHeure());
         dto.setUsername(reservation.getUsername());
         dto.setDoctorname(reservation.getDoctorname());
+        
         dto.setSpecialty(reservation.getSpecialty());
         dto.setImage(doctor.get().getImage());
         dto.setCancel(reservation.isCancel());
@@ -139,11 +146,65 @@ public class ReservationService {
     
             dto.setId(reservation.getId());
             dto.setPatientname(user.get().getEmail());
+            dto.setPatientemail(user.get().getUsername());
             dto.setId_patient(reservation.getIdpatient());
             dto.setJour(reservation.getJour());
             dto.setHeure(reservation.getHeure()); 
             dto.setPatientphone(user.get().getPhone());
                 return dto;
+    }
+
+    public ResponseEntity<?> completeTheReservation(Long id) {
+        Optional<Reservation> reservation = reservationRepository.findById(id);
+        try {
+            if (reservation.isPresent()) {
+                System.out.println(reservation.get().getIdpatient());
+                reservation.get().setCompleted(1);
+                reservationRepository.save(reservation.get());
+                Optional<DoctorPatients> patient = doctorPatientsRepository.findById(reservation.get().getIddoctor());
+                System.out.println(patient.isPresent());
+
+                 if (patient.get().getPatientsList() != null) {
+                    List<String> patientIds = new ArrayList<>();
+                    byte[] patientIdBytes = patient.get().getPatientsList();
+                    String patientIdString = new String(patientIdBytes);
+                    String[]patientIdLines =patientIdString.split("\n");
+                    for (String line : patientIdLines) {
+                        patientIds.add(line);
+                    }
+                    patientIds.add ( reservation.get().getIdpatient()); ;
+                    StringBuilder newPatientIds = new StringBuilder();
+                    for (String Id : patientIds) {
+                        newPatientIds.append(Id).append("\n");
+                    }
+                    byte[] newPatientIdsBytes = newPatientIds.toString().getBytes();
+                    patient.get().setPatientsList(newPatientIdsBytes);
+                    patient.get().setPatientsCount(patient.get().getPatientsCount() + 1);
+                    doctorPatientsRepository.save(patient.get());
+                    return ResponseEntity.ok("Patient added successfully");
+            
+                 }
+                 
+            }
+            return ResponseEntity.ok("Reservation not found");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to complete the reservation: " + e.getMessage());
+        }
+    }
+// update reservation
+    public ResponseEntity<?> updateReservation(ReservationDTO reservationDTO) {
+        Optional<Reservation> reservation = reservationRepository.findById(reservationDTO.getId());
+        try {
+            if (reservation.isPresent()) {
+                reservation.get().setJour(reservationDTO.getJour());
+                reservation.get().setHeure(reservationDTO.getHeure());
+                reservationRepository.save(reservation.get());
+                return ResponseEntity.ok("Reservation updated successfully");
+            }
+            return ResponseEntity.ok("Reservation not found");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update the reservation: " + e.getMessage());
+        }
     }
 
         

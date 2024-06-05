@@ -32,16 +32,15 @@ public class UserEntity {
     private String phone;
     @Column(name = "Cin")
     private String cin;
-    @Lob
-    @Column(name = "Image" ,length = 20000000)
-    private  byte[]  Image;
+    @Column(name = "Image")
+    private  String  Image;
     @Column(name = "IsActive")
     private boolean isActive ;
 
 // 
 
     @Temporal(TemporalType.DATE)
-    private Date creationDate;
+    private String creationDate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();

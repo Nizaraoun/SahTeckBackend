@@ -5,7 +5,7 @@ import lombok.Data;
 public class MedicalFileDTO {
     private String id;
     private String name;
-    private byte[]  file;
+    private String  file;
     private String txt;
     private Long userId;
 }

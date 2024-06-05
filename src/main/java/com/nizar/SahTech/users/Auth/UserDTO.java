@@ -18,6 +18,6 @@ public class UserDTO {
 
     private String role;
 
-    private  byte[]  image;
+    private  String image;
 
 }

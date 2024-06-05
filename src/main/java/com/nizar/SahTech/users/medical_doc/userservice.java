@@ -18,13 +18,23 @@ import java.util.List;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.core.io.UrlResource;
+
+import com.nizar.SahTech.doctor.repository.DoctorRepo;
+import com.twilio.rest.chat.v1.service.User;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import org.springframework.core.io.Resource;
+
 @Service
 @RequiredArgsConstructor
 public class userservice {
     private final UserRepository userRepository; // Assuming you have a repository for users
 private final FilesRepository docFileRepository; // Assuming you have a repository for medical files
 private final DocRepository docRepository; // Assuming you have a repository for documents
-
+private final String rootDir = "uploads/user/";
    
 // this method is used to save the profile image for the user
 public ResponseEntity<String> saveImageForUser(UserDTO imageData, Principal connectedUser) {
@@ -46,34 +56,64 @@ public ResponseEntity<String> saveImageForUser(UserDTO imageData, Principal conn
 }
 
   // this method is used to save the medical file for the user
+  public ResponseEntity<String> saveMedicalFileForUser(Principal connectedUser, String id, MultipartFile file) {
+    try {
+        // Check if user exists
+        Optional<UserEntity> userOptional = userRepository.findByUsername(connectedUser.getName());
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+        UserEntity user = userOptional.get();
 
-public ResponseEntity<String> saveMedicalFileForUser( Principal connecteduser ,MedicalFileDTO medicalFileDTO )  throws IOException{
-    Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
-    Optional<MedicalFile> files = docFileRepository.findById(medicalFileDTO.getId());
-    Optional<Document> document = docRepository.findById(medicalFileDTO.getId());
-    byte[] bytes = medicalFileDTO.getTxt().getBytes();
+        // Check if document exists
+        Optional<Document> documentOptional = docRepository.findById(id);
+        if (!documentOptional.isPresent()) {
+            return ResponseEntity.badRequest().body("Document not found");
+        }
+        Document document = documentOptional.get();
 
-try {
-    MedicalFile file = files.get();
-    if (file != null ){
-        byte[] existingData = file.getFile();
-        byte[] combinedData = concatenateByteArrays(existingData, bytes ,document.get().getNumber()+1);
-        file.setFile(combinedData);
-        document.get().setNumber(document.get().getNumber() + 1);
-        docRepository.save(document.get());
-        docFileRepository.save(file);
-        return ResponseEntity.ok("Medical File updated successfully for user with ID: " + user.get().getId());
+        // Check if medical file exists
+        Optional<MedicalFile> filesOptional = docFileRepository.findById(id);
+        if (!filesOptional.isPresent()) {
+            return ResponseEntity.badRequest().body("Medical file not found");
+        }
+        MedicalFile oldFile = filesOptional.get();
+
+        // Define upload directory and file path
+        String uploadDir = rootDir + user.getId() + "/" + document.getDescription() + "/";
+        Path copyLocation = Paths.get(uploadDir + file.getOriginalFilename());
+
+        // Ensure directory exists
+        Files.createDirectories(copyLocation.getParent());
+
+        // Copy file to target location
+        Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+        // Update file data in the medical file
+        byte[] newFileData = (user.getId() + "/" + document.getDescription() + "/" + file.getOriginalFilename()+" ").getBytes();
+        byte[] updatedFileData = concatenateByteArrays(oldFile.getFile(), newFileData);
+
+        oldFile.setFile(updatedFileData);
+        document.setNumber(document.getNumber() + 1);
+
+        // Save updated document and file
+        docRepository.save(document);
+        docFileRepository.save(oldFile);
+
+        return ResponseEntity.ok(oldFile.getFile().toString());
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save file: " + e.getMessage());
     }
-    else {
-        return ResponseEntity.badRequest().body("Medical File not found for user with ID: " + user.get().getId());
-    }
-    
- 
-} catch (Exception e) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload Medical File: " + e.getMessage());
 }
 
+// Helper method to concatenate two byte arrays
+private byte[] concatenateByteArrays(byte[] array1, byte[] array2) {
+    byte[] result = new byte[array1.length + array2.length];
+    System.arraycopy(array1, 0, result, 0, array1.length);
+    System.arraycopy(array2, 0, result, array1.length, array2.length);
+    return result;
 }
+
 // this method is used to get the profile image for the user
 public ResponseEntity<?> getImageForUser(Principal connecteduser) {
     Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
@@ -149,57 +189,53 @@ public ResponseEntity<?> deleteMedicalFileForUser(Principal connecteduser, Strin
     }
     return ResponseEntity.badRequest().body("Medical File not found for user with ID: " + user.get().getId());}
 
-// this method is used to get the medical file for the user
-//public ResponseEntity<?> getMedicalFileForUser(Principal connecteduser) {
-  //  Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
-    //try {
-      //  if (user.isPresent()) {
-        //    return ResponseEntity.ok(docFileRepository.findBydocId(user.get().getId()));
-        //}
-    //} catch (Exception e) {
-     //   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get Medical File: " + e.getMessage());
-   // }
-    //return ResponseEntity.badRequest().body("User not found");
-//}
+
 
 // Helper method to concatenate two byte arrays
-private byte[] concatenateByteArrays(byte[] first, byte[] second  , int imageNumber) {
-    String str = "\n Image"+imageNumber+":" ;
-    byte[] txt = str.getBytes();
 
-    byte[] result = new byte[first.length + txt.length +second.length];
-    System.arraycopy(first, 0, result, 0, first.length);
-    System.arraycopy(txt, 0, result, first.length, txt.length);
-    System.arraycopy(second, 0, result, first.length + txt.length, second.length);
-    
-    return result;
+public ResponseEntity <?> getMedicalFileForUser(fileDTO filedto ,Principal connecteduser) {
+    MedicalFileDTO filedoc = new MedicalFileDTO();
+
+
+if (filedto.getRole().equals("user")) {
+
+    Optional<MedicalFile> files = docFileRepository.findById(filedto.getId());
+    try {
+        if (files != null) {
+            byte[] file = files.get().getFile();
+                String newFile = new String(file);
+            filedoc.setFile(newFile);
+
+            return ResponseEntity.ok(filedoc);
+            
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get Medical File: " + e.getMessage());
+    }
+}    
+
+else{
+    Optional<Document> document = docRepository.findByUserIdAndDocCode( filedto.getUserId(),filedto.getSecretKey());
+    try {
+        Optional<MedicalFile> file = docFileRepository.findById(document.get().getId());
+        if (file != null) {
+            byte[] files = file.get().getFile();
+            String newFile = new String(files);
+            filedoc.setFile(newFile);
+            filedoc.setName(document.get().getDescription());
+            // Generate a new document code
+            document.get().setDocCode(IdGenerator.generateId(5));
+            docRepository.save(document.get());
+            return ResponseEntity.ok(filedoc);
+        }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get Medical File: " + e.getMessage());}
 }
+return ResponseEntity.badRequest().body("User not found");
+        
+  
 
-// public List<MedicalFile> getMedicalFileForUser(Principal connecteduser , Long docId) {
-//     Optional<UserEntity> user = userRepository.findByUsername(connecteduser.getName());
-//     Optional<MedicalFile> files = docFileRepository.findById(docId);
-//     try {
-//         MedicalFile file = new MedicalFile();
-//         if (files.isPresent()) {
-//           String str = new String(files.get().getFile());
-//           for (int i = 0; i < str.length(); i++) {
-//               if (str.charAt(i) == ' ') {
-//                     file.setId(files.get().getId());
-//                     file.setName(files.get().getName());
-//                     file.setUserId(files.get().getUserId());
-//                     file.setFile(files.get().getFile());
-//                     return file;
-//               }
-
-//         }
-    
-//     }
-//     } catch (Exception e) {
-//         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get Medical File: " + e.getMessage());
-//     }
-//     return ResponseEntity.badRequest().body("no file found in this document");
-
-//     }
+}
 
   
 }

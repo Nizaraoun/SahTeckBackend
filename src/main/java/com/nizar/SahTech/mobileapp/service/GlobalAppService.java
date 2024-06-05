@@ -137,12 +137,10 @@ public class GlobalAppService {
             
             doctor.setIsActive(null);
             doctor.setRoles(null);
-            doctor.setLongitude(null);
-            doctor.setLatitude(null);
-         
             doctor.setCreationDate(null);
         });
         return list;
     }
 
+    
 }

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nizar.SahTech.doctor.list_patient.DoctorPatients;
 import com.nizar.SahTech.role.dto.Role;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DoctorEntity {
+  public enum Plan {
+    FREE, BASIC, Standard, Premium
+}
     @Id
     @Column(name = "Id")
     private String id;
@@ -30,25 +34,25 @@ public class DoctorEntity {
     private String phone;
     @Column(name = "address")
     private String address;
-    @Column(name = "Latitude")
-    private String latitude;
-    @Column(name = "Longitude")
-    private String longitude;
     @Column(name = "password")
     private String password;
     @Column(name = "is_active")
     private Boolean isActive;
-    @Lob
-    @Column(name = "image" ,length = 20000000)
-    private byte[] image;
+    @Column(name = "image")
+    private String image;
     @Column(name = "rating")
     private Double rating;
     @Column(name = "followers")
     private Integer followers;
+    @Column(name = "bio")
+    private String bio;
+    @Column(name = "subscription_plans")
+    private Plan subscription;
     
       @Temporal(TemporalType.DATE)
-    private Date creationDate;
+    private String creationDate;
         @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles = new ArrayList<>();
 
+  
 }

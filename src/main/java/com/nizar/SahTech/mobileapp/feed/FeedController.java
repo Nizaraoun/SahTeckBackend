@@ -36,9 +36,9 @@ public class FeedController {
     public ResponseEntity<?> addPost(@RequestBody FeedDTO post){
         return feedService.addPost(post);
     }
-// -----------------------------------------
-               // delete post
-// -----------------------------------------
+// ------------------------+---------------
+                   // delete post
+// ------------+------------------------+--
 
     @DeleteMapping("/delete-post")
     public ResponseEntity<?> deletePost(@RequestParam Long id) {
@@ -51,8 +51,7 @@ public class FeedController {
     @GetMapping("/get-all-posts")
     public ResponseEntity<List<FeedDTO>> getAllPosts(@RequestParam String role ,Principal principal ) {
         String user = principal.getName(); 
-            Optional<UserEntity> User = UserRep.findByUsername(user);
-            return feedService.getAllPosts(role, User.get().getId());}
+            return feedService.getAllPosts(role, user);}
     
 // -------------------------------------------------
                 // add  comments

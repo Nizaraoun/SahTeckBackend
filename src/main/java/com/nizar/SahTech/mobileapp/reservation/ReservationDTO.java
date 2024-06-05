@@ -10,7 +10,7 @@ public class ReservationDTO {
     private String id_patient;
     private String id_praticien;
     private String specialty;
-    private byte[] image;
+    private String image;
     private boolean cancel;
     private double completed;
     private String patientname;

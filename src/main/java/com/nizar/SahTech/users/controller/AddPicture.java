@@ -17,6 +17,7 @@ import com.nizar.SahTech.users.medical_doc.Document;
 import com.nizar.SahTech.users.medical_doc.DocumentDTO;
 import com.nizar.SahTech.users.medical_doc.MedicalFile;
 import com.nizar.SahTech.users.medical_doc.MedicalFileDTO;
+import com.nizar.SahTech.users.medical_doc.fileDTO;
 import com.nizar.SahTech.users.medical_doc.userservice;
 
 import lombok.RequiredArgsConstructor;
@@ -27,19 +28,19 @@ import lombok.RequiredArgsConstructor;
 public class AddPicture {
     private final userservice userService;
     // this method is used to save the profile image for the user
-    @PostMapping("/addProfileimg")
-    public ResponseEntity<?> uploadImageForUser(@RequestBody UserDTO imageData, Principal connectedUser) {
-        try {
-            if (imageData == null || imageData.getImage() == null || imageData.getImage().length == 0) {
-                return ResponseEntity.badRequest().body("Image is required");
-            } else {
-                userService.saveImageForUser(imageData, connectedUser);
-                return ResponseEntity.ok("Image uploaded successfully for user with ID: " + connectedUser.getName());
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image: " + e.getMessage());
-        }
-    }
+    // @PostMapping("/addProfileimg")
+    // public ResponseEntity<?> uploadImageForUser(@RequestBody UserDTO imageData, Principal connectedUser) {
+    //     try {
+    //         if (imageData == null || imageData.getImage() == null || imageData.getImage().length == 0) {
+    //             return ResponseEntity.badRequest().body("Image is required");
+    //         } else {
+    //             userService.saveImageForUser(imageData, connectedUser);
+    //             return ResponseEntity.ok("Image uploaded successfully for user with ID: " + connectedUser.getName());
+    //         }
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image: " + e.getMessage());
+    //     }
+    // }
     
         // this method is used to get the image for the user
 
@@ -72,9 +73,15 @@ public class AddPicture {
             // this method is used to save the medical file for the user
 
              @PostMapping("/add-medical-file")   
-            public ResponseEntity<?> uploadMedicalFileForUser(@RequestBody MedicalFileDTO medicalFileDTO ,Principal connecteduser ) {
-            return userService.saveMedicalFileForUser( connecteduser ,medicalFileDTO);
+            public ResponseEntity<?> uploadMedicalFileForUser(@RequestParam("file") MultipartFile file, @RequestParam("document_id") String id ,Principal principal) {
+            return userService.saveMedicalFileForUser( principal,id,file );
              } 
+
+             @PostMapping("/get-medical-file")
+                public ResponseEntity< ?> getMedicalFileForUser (@RequestBody fileDTO filedto ,Principal connecteduse ) {
+
+                    return userService.getMedicalFileForUser(filedto, connecteduse);
+                }
     }
 
 

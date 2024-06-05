@@ -1,18 +1,98 @@
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\configuration\SimpleCorsFilter.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\AuthenticationResponse.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\HelloController.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\configuration\WebSecurityConfiguration.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\entite\User.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\service\UserDetailsServiceImpl.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\SahTechApplication.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\AuthenticationController.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\filters\JwtRequestFilter.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\AuthenticationDTO.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\SignupDTO.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\UserDTO.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\HelloResponse.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\repository\UserRepository.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\service\userservice.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\SignupController.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\service\AppUserDetails.java
-E:\Pfe Project\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\util\JwtUtil.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\repository\DoctorRepo.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\controller\LoginDoctorController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Login\AuthenticationDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\SahTechApplication.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\controller\DrAuthenticationDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\Feed.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\SecurityConstants.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\dto\PublicationDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\SmsService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\dto\Announce.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\JwtAuthEntryPoint.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Register\AuthService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\FeedController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\util\JwtUtil.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\CustomUserDetailsService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\repository\Pubrepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\JwtGenreratorUpdate.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\FeedService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\OtpResponseDto.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\recent_doctor\RecentDoctorRep.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\chat\ChatDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\admin\controller\appController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\dto\AuthDrResponseDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\dto\SignUpDto.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\DocumentDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\service\AppUserDetails.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\reservation\ReservationRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\update\update_password_controller.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\recent_doctor\RecentDoctorService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\util\IdGenerator.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\FeedRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\SecurityConfig.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\WebConfig.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\entity\DoctorEntity.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\DocRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\admin\controller\webController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\service\DoctorService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\OtpRequest.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\reservation\ReservationController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\entity\Rating.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\list_patient\DoctorPatientsService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\MedicalFileDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\CommentRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\reservation\Reservation.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\service\UserDetailsServiceImpl.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\FilesRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\controller\PublicationController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\following_list_doctor\followingRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\controller\FileController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\JWTAuthenticationFilter.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\RecentDoctor.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\userservice.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\entity\Announcement.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\update\update_password_service.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Register\SignupDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Register\SignupController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\FeedDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\AuthResponseDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\OtpController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\chat\ChatController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\repository\Ratingrepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\list_patient\DoctorPatientsController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\role\dto\Role.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\list_patient\DoctorPatients.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\AddPicture.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\JWTGenerator.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\security\TwilioConfig.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\dto\RatingDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\controller\HelloController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\MedicalFile.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\following_list_doctor\followinglist.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\role\repository\RoleRep.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\chat\ChatRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\UserEntity.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\chat\ChatService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\reservation\ReservationService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\dto\HelloResponse.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Login\AuthenticationController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\following_list_doctor\followingController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\chat\Chat.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\admin\service\webService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\admin\service\appService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\fileDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\controller\GlobalController.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\UserRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\service\FileStorageService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\controller\SigninDoctorCotroller.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\commentdto.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\OtpValidationRequest.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\admin\dto\appDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\UserDTO.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\following_list_doctor\followingService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\doctor\list_patient\DoctorPatientsRepository.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\feed\Comment.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\Auth\Otp\OtpStatus.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\users\medical_doc\Document.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\service\GlobalAppService.java
+e:\PfeProject\BackendSahTech\SahTech\src\main\java\com\nizar\SahTech\mobileapp\reservation\ReservationDTO.java

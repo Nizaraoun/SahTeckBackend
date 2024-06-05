@@ -66,12 +66,12 @@ public class FeedService {
 
     }
             // get all User posts
-    public ResponseEntity<List<FeedDTO>> getAllPosts(String role ,String userId) {
+    public ResponseEntity<List<FeedDTO>> getAllPosts(String role ,String connection) {
         List<FeedDTO> feeddto = new ArrayList<>();
 
         try {
             if (role.equals("user") ) {
-
+                
                 List<Feed> feeds = feedRepository.findAll();
                
                     for (Feed feed : feeds) {
@@ -103,7 +103,8 @@ public class FeedService {
             }
             else
             {
-                Optional<followinglist> following = followingRepository.findById(userId);
+                Optional<UserEntity> user = userRepository.findByUsername(connection);
+                Optional<followinglist> following = followingRepository.findById(user.get().getId());
                 if (following.isPresent()) {
                     byte[] doctorIdBytes = following.get().getDoctorId();
                     String doctorIdString = new String(doctorIdBytes);

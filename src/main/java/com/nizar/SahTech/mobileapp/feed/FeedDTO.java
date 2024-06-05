@@ -13,7 +13,7 @@ public class FeedDTO {
     String commentContent;
     Long commentCount;
     String role;
-    byte[] SenderImg;
+    String SenderImg;
     String SenderName;
     String createdAt;
     boolean anonymous;

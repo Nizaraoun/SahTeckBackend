@@ -34,7 +34,7 @@ public class ReservationController {
         
             else{
               if (connecteduser.getName() != null  ) {
-                reservationDTO.setUsername(connecteduser.getName());
+                reservationDTO.setPatientemail(connecteduser.getName());
                 return reservationService.addReservation(reservationDTO);
             }
             else{
@@ -74,8 +74,14 @@ public class ReservationController {
 
 
     
-
-
-    
-
+//completed reservation 
+    @PostMapping("/completeReservation")
+    public ResponseEntity<?> completeTheReservation(@RequestBody ReservationDTO reservationDTO) {
+        return reservationService.completeTheReservation(reservationDTO.getId());
+    }
+    // update reservation
+    @PostMapping("/updateReservation")
+    public ResponseEntity<?> updateReservation(@RequestBody ReservationDTO reservationDTO) {
+        return reservationService.updateReservation(reservationDTO);
+    }
 }
