@@ -10,7 +10,7 @@ spring:
           auth: true
           starttls:
             enable: true
-   datasource:
+  datasource:
     url: jdbc:mysql://sql6.freesqldatabase.com/sql6702920?useSSL=false
     username: sql6702920
     password: M4kwAldi1Y
@@ -43,4 +43,3 @@ logging:
 app:
   client:
     url: http://localhost:8080/*
-
