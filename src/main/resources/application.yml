@@ -43,3 +43,8 @@ logging:
 app:
   client:
     url: http://localhost:8080/*
+
+twilio:
+  AccountSID: AC66514c238aaaf64740b3f63cab770271
+  AuthToken: 2453a1b2b7c45d2d5523cb2c47191d8c
+  phoneNumber: +13346001566
