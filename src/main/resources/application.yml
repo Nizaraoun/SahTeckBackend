@@ -11,9 +11,9 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: jdbc:mysql://sql6.freesqldatabase.com/sql6702920?useSSL=false
-    username: sql6702920
-    password: M4kwAldi1Y
+    url: jdbc:mysql://sql6.freesqldatabase.com/sql7712090?useSSL=false
+    username: sql7712090
+    password: zQsHANGat3
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     static-path-pattern: /uploads/**
