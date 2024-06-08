@@ -11,7 +11,7 @@ spring:
           starttls:
             enable: true
   datasource:
-    url: jdbc:mysql://sql7.freesqldatabase.com/sql7712202?useSSL=false
+    url: jdbc:mysql://sql7.freesqldatabase.com/sql7712716?useSSL=false
     username: sql7712716
     password: jf5vnKqEeW
     driver-class-name: com.mysql.cj.jdbc.Driver
