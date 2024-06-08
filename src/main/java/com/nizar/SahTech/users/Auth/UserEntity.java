@@ -30,8 +30,9 @@ public class UserEntity {
     private String email;
     @Column(name = "Phone")
     private String phone;
-    @Column(name = "Cin")
-    private String cin;
+    @Column(name = "DateOfBirth")
+    private String dateOfBirth;
+    
     @Column(name = "Image")
     private  String  Image;
     @Column(name = "IsActive")

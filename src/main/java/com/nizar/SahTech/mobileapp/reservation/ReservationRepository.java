@@ -15,4 +15,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>{
 
     Optional<List<Reservation>> findReservationsByIdpatient(String userId);
     Optional<List<Reservation>> findByIddoctor(String idPraticien);
+
+    List<Reservation> findByIdpatient(String idPatient);
 }

@@ -51,6 +51,8 @@ public class webController {
     public String deletePub(@RequestParam Long id) {
         return webService.deletePub(id);
     }
+
+    
     
     
 }

@@ -48,12 +48,12 @@ public class ReportService {
         if (report.isPresent()) {
             if (report.get().getRole().equals("doctor")) {
                 Optional<DoctorEntity> doctor = doctorRepository.findById(report.get().getSenderId());
-                smsService.SendMail(new OtpRequest(doctor.get().getUsername(),  doctor.get().getEmail(), reportDTO.getReport(), null));
+                smsService.SendMail(new OtpRequest(doctor.get().getUsername(),  doctor.get().getEmail(), reportDTO.getResponse(), null));
                  return "Report sent successfully";
                 
             } else if (report.get().getRole().equals("patient")) {
                 Optional<UserEntity> patient = patientRepository.findById(report.get().getSenderId());
-                smsService.SendMail(new OtpRequest(patient.get().getUsername(), patient.get().getEmail(), reportDTO.getReport(), null));
+                smsService.SendMail(new OtpRequest(patient.get().getUsername(), patient.get().getEmail(), reportDTO.getResponse(), null));
                 return "Report sent successfully";
                 
             } 
@@ -68,9 +68,7 @@ public class ReportService {
 
     public List<reportDTO> getAllReports() {
         List<report> reports = reportRepository.findAll();
-        List<reportDTO> reportDTOs = new ArrayList<>();
-        System.out.println(reports);
-        
+        List<reportDTO> reportDTOs = new ArrayList<>();        
         try {
             if (!reports.isEmpty()) {
                 for (report report : reports) {

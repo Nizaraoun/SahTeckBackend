@@ -27,21 +27,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class AddPicture {
     private final userservice userService;
-    // this method is used to save the profile image for the user
-    // @PostMapping("/addProfileimg")
-    // public ResponseEntity<?> uploadImageForUser(@RequestBody UserDTO imageData, Principal connectedUser) {
-    //     try {
-    //         if (imageData == null || imageData.getImage() == null || imageData.getImage().length == 0) {
-    //             return ResponseEntity.badRequest().body("Image is required");
-    //         } else {
-    //             userService.saveImageForUser(imageData, connectedUser);
-    //             return ResponseEntity.ok("Image uploaded successfully for user with ID: " + connectedUser.getName());
-    //         }
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image: " + e.getMessage());
-    //     }
-    // }
-    
+   
         // this method is used to get the image for the user
 
         @GetMapping("/get-image")
@@ -49,7 +35,6 @@ public class AddPicture {
             return userService.getImageForUser(connecteduser);
         } 
 
-        // this method is used to get the medical file for the user
         // this method is user to  add the document for the user
 
         @PostMapping("/add-medical-doc")

@@ -158,12 +158,9 @@ public class ReservationService {
         Optional<Reservation> reservation = reservationRepository.findById(id);
         try {
             if (reservation.isPresent()) {
-                System.out.println(reservation.get().getIdpatient());
                 reservation.get().setCompleted(1);
                 reservationRepository.save(reservation.get());
                 Optional<DoctorPatients> patient = doctorPatientsRepository.findById(reservation.get().getIddoctor());
-                System.out.println(patient.isPresent());
-
                  if (patient.get().getPatientsList() != null) {
                     List<String> patientIds = new ArrayList<>();
                     byte[] patientIdBytes = patient.get().getPatientsList();

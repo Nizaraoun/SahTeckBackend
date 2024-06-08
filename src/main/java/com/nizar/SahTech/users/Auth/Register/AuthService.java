@@ -61,7 +61,7 @@ public class AuthService {
         user.setUsername(signupDTO.getUsername());
         user.setId(IdGenerator.generateId(24));
         user.setPhone(signupDTO.getPhone());
-        user.setCin(signupDTO.getCin());
+        user.setDateOfBirth(signupDTO.getDateOfBirth());
         user.setImage("default.jpg");
         user.setEmail(signupDTO.getEmail());
         user.setPassword(passwordEncoder.encode(signupDTO.getPassword()));

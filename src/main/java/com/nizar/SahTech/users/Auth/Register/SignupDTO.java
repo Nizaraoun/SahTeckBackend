@@ -8,7 +8,7 @@ public class SignupDTO {
 
     private String email;
 
-    private String cin;
+    private String dateOfBirth;
 
     private String phone;
 

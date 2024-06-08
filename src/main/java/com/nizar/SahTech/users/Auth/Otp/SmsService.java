@@ -82,7 +82,7 @@ UserEntity	user = userRepository.findByUsername(username).get();
                 .format(new Random().nextInt(99999));
     }
     public OtpResponseDto  SendMail(OtpRequest otpRequest ) {
-		System.out.println("inside sendMail :: "+otpRequest.getBody());
+		System.out.println("inside sendMail :: "+otpRequest);
         try{ 
 
             String subject =  "👋 Welcome  to Sahtech 🎉!";
